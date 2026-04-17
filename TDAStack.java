@@ -21,7 +21,7 @@ public interface TDAStack<T>{
   /**
    * Regresa el tope de la pila
    * @return el elemento en el tope
-   * @throws EmptyStackException en caso de tner la pila vacía.
+   * @throws EmptyStackException en caso de tener la pila vacía.
    */
   public T top() throws EmptyStackException;
 
@@ -35,10 +35,4 @@ public interface TDAStack<T>{
    * Limpia la pila
    */
   public void clear();
-
-  /**
-   * Permite visualizar los elementos de la pila
-   */
-  public void show();
-
 }

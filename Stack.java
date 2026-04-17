@@ -1,54 +1,77 @@
-import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Iterator;
-
 /**
- * Implementación de una pila usando listas
- * @author Yanahi
- * @version 10 de marzo 2026
+ * Implementacion de una pila usando listas
+ * @author Antonio Pacheco
+ * @version 16 de abril 2026
  */
 public class Stack<T> implements TDAStack<T>{
+	private class Node{
+		T dato;
+		Node siguiente;
 
-  /*Lista auxiliar para las operacioens */
-  private ArrayList<T> lista = new ArrayList<>();
+		public Node(T dato){
+			this.dato = dato;
+			this.siguiente = null;
+		}
+	}
 
-  @Override
-  public void push(T e){
-    lista.add(0,e);
-  }
+	Node tope;
+	int tamaño;
 
-  @Override
-  public T pop() throws EmptyStackException{
-    if(lista.isEmpty()){
-      throw new EmptyStackException();
-    }
-    return lista.remove(0);
-  }
+	public Stack(){
+		tope = null;
+		tamaño = 0;
+	}
 
-  @Override
-  public T top() throws EmptyStackException{
-    if(lista.isEmpty()){
-      throw new EmptyStackException();
-    }
-    return lista.get(0);
-  }
+	@Override
+	public void push(T e){
+		if(isEmpty()){
+			tope = new Node(e);
+			tamaño++;
+		}else{
+			Node aux = tope;
+			tope = new Node(e);
+			tope.siguiente = aux;
+			tamaño++;
+		}
+	}
 
-  @Override
-  public boolean isEmpty(){
-    return lista.isEmpty();
-  }
+	@Override
+	public T pop() throws EmptyStackException{
+		if(isEmpty()){
+			throw new EmptyStackException();
+		}
+		Node aux = tope;
+		tope = tope.siguiente;
+		tamaño--;
+		return aux.dato;
+	}
 
-  @Override
-  public void clear(){
-    lista.clear();
-  }
+	@Override
+	public T top() throws EmptyStackException{
+		if(isEmpty()){
+			throw new EmptyStackException();
+		}
+		return tope.dato;
+	}
 
-  @Override
-  public void show(){
-    Iterator<T> iterator =  lista.iterator();
-    while(iterator.hasNext()){
-      System.out.println(iterator.next());
-    }
-  }
+	@Override
+	public boolean isEmpty(){
+		return tope == null;
+	}
+
+	@Override
+	public void clear(){
+		tope = null;
+	}
+
+	/**
+	 * Metodo auxiliar para devolver el tamaño de la pila
+	 * @return int
+	 */
+	public int tamaño(){
+		return tamaño;
+	}
 
 }
